@@ -1,4 +1,5 @@
 let btn = document.querySelectorAll(".btn");
+let btnTheme = document.querySelector("#changetheme");
 let outputField = document.querySelector(".output__field");
 let a = 0,
   b = 0;
@@ -34,6 +35,24 @@ btn.forEach((el) => {
       el.addEventListener("click", () => {
         addNum(el);
       });
+  }
+  el.addEventListener("click", changeFontSize);
+});
+
+btnTheme.addEventListener("click", () => {
+  console.log("clicked");
+  if (btnTheme.classList.contains("black")) {
+    document.documentElement.style.setProperty("--white", "#000");
+    document.documentElement.style.setProperty("--container-bg", "#F1F2F3");
+    document.documentElement.style.setProperty("--switcher-bg", "#FFFFFF");
+    document.documentElement.style.setProperty("--clear-btn", "#D2D3DA");
+    btnTheme.classList.toggle("black");
+  } else if (!btnTheme.classList.contains("black")) {
+    document.documentElement.style.setProperty("--white", "#fff");
+    document.documentElement.style.setProperty("--container-bg", "#17171c");
+    document.documentElement.style.setProperty("--switcher-bg", "#2e2f38");
+    document.documentElement.style.setProperty("--clear-btn", "#4e505f");
+    btnTheme.classList.toggle("black");
   }
 });
 
@@ -87,4 +106,15 @@ function doOutput() {
   }
   outputField.innerHTML = result;
   a = b;
+}
+
+function changeFontSize() {
+  let line = outputField.innerHTML;
+  if (line.length <= 6) {
+    outputField.style.fontSize = "96px";
+  } else if (line.length > 6 && line.length <= 10) {
+    outputField.style.fontSize = 90 - (line.length - 6) * 10 + "px";
+  } else if (line.length > 10) {
+    outputField.style.fontSize = "50px";
+  }
 }
